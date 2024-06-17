@@ -131,7 +131,7 @@ async def server(ctx):
 async def support(ctx):
     embed = discord.Embed(
         title="Support Me!", 
-        description="Hi!, Support server ini dengan meramaikannya yaa!\n[Join our Discord Server](https://www.youtube.com/channel/UChrOMGz38-rInAQkrU6z6hg)", 
+        description="Hi!, Support server ini dengan meramaikannya yaa!\n[Subscribe Youtube Channel!](https://www.youtube.com/channel/UChrOMGz38-rInAQkrU6z6hg)", 
         color=discord.Color.blue()
     )
     embed.add_field(name="Komunitas kita!", value="Games,Events,Komunitas", inline=False)
@@ -272,7 +272,7 @@ async def about(ctx):
     lacus support - Support server ini dengan meramaikannya!.
     lacus developer - Support developernya dengan https://saweria.co/NoufalZaidan.
     """, inline=False)
-    embed.set_footer(text="Teimakasih sudah menggunakan Official Bot Aca Natasha!")
+    embed.set_footer(text="Teimakasih sudah menggunakan Official Waifu Noufal Zaidaan")
     await ctx.send(embed=embed)
 
 @bot.command()
@@ -296,6 +296,9 @@ async def love(ctx, user1: discord.Member, user2: discord.Member):
 async def on_message(message):
     if message.author.bot:
         return
+    
+    if 'morning' in message.content.lower():
+        await message.channel.send(f'morning darling, hows ur sleep {message.author.mention}?')
     
     if 'goodnight' in message.content.lower():
         await message.channel.send(f'Goodnight darling, sleep well {message.author.mention}')
