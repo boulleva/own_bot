@@ -5,6 +5,7 @@ import asyncio
 import logging
 import config  # Ensure you have your config file with the BOT_TOKEN
 import random  # Importing the random module
+from datetime import datetime, timedelta
 
 # Change logging level from DEBUG to INFO
 logging.basicConfig(level=logging.INFO)
@@ -296,7 +297,14 @@ async def love(ctx, user1: discord.Member, user2: discord.Member):
 async def on_message(message):
     if message.author.bot:
         return
+    if message.content.lower() == "tell me the date":
+        today = datetime.now().strftime('%A, %d %B %Y')
+        await message.channel.send(f"Today is {today}!")
     
+    if message.content.lower() == "sekarang hari apa":
+        today_indonesian = datetime.now().strftime('%A, %d %B %Y')
+        await message.channel.send(f"Sekarang hari {today_indonesian}, sayang!")
+        
     if 'morning' in message.content.lower():
         await message.channel.send(f'morning darling, hows ur sleep {message.author.mention}?')
     
