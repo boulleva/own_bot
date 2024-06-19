@@ -69,14 +69,14 @@ async def on_ready():
 
 @bot.command()
 async def ping(ctx):
-    await ctx.send('Ada kak!')
+    await ctx.send('Ada sayaang!')
 
-@bot.command(name='who are you')
+@bot.command()
 async def who(ctx):
     await ctx.send('Im fal is girlfriend')
 
 @bot.command()
-async def hi (ctx):
+async def waifu (ctx):
     guild = ctx.message.author.guild
     embed = discord.Embed(title='Noufal Zaidaan', color=0x0080ff)
     serverData = {
@@ -280,7 +280,7 @@ async def about(ctx):
 async def afk(ctx, *, message="I'm currently AFK."):
     """Sets the user as AFK with a custom message"""
     afk_users[ctx.author.id] = message
-    await ctx.send(f'{ctx.author.mention} is now AFK: {message}')
+    await ctx.send(f'{ctx.author.mention} Sekarang lagi AFK: {message}')
 
 @bot.command()
 async def love(ctx, user1: discord.Member, user2: discord.Member):
@@ -299,11 +299,14 @@ async def on_message(message):
         return
     if message.content.lower() == "tell me the date":
         today = datetime.now().strftime('%A, %d %B %Y')
-        await message.channel.send(f"Today is {today}!")
+        await message.channel.send(f"Today is {today}, darling!")
     
     if message.content.lower() == "sekarang hari apa":
         today_indonesian = datetime.now().strftime('%A, %d %B %Y')
         await message.channel.send(f"Sekarang hari {today_indonesian}, sayang!")
+    
+    if 'main' in message.content.lower():
+        await message.channel.send(f'mau main apa sayangku {message.author.mention}?')
         
     if 'morning' in message.content.lower():
         await message.channel.send(f'morning darling, hows ur sleep {message.author.mention}?')
@@ -317,13 +320,13 @@ async def on_message(message):
     # Check if the message author is AFK and handle AFK logic
     if message.author.id in afk_users:
         afk_users.pop(message.author.id)
-        await message.channel.send(f'Welcome back {message.author.mention}, you are no longer AFK.')
+        await message.channel.send(f'Halooo sayaangg{message.author.mention}, kamu udah balikk yaa.')
 
     # Check mentions for AFK users
     if message.mentions:
         for user in message.mentions:
             if user.id in afk_users:
-                await message.channel.send(f'{user.mention} is currently AFK: {afk_users[user.id]}')
+                await message.channel.send(f'{user.mention} orangnya lagi afk kak!: {afk_users[user.id]}')
 
     await bot.process_commands(message)
 
