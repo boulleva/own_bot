@@ -5,12 +5,16 @@ import asyncio
 import logging
 import config  # Ensure you have your config file with the BOT_TOKEN
 import random  # Importing the random module
+from cogs.auto_voice import setup_auto_voice_events
 from datetime import datetime, timedelta
 
 # Change logging level from DEBUG to INFO
 logging.basicConfig(level=logging.INFO)
 
 intents = discord.Intents.default()
+intents.guilds = True
+intents.voice_states = True
+intents.members = True
 intents.message_content = True
 intents.members = True
 bot = commands.Bot(command_prefix=lambda bot, message: 'lacus ', intents=intents)
@@ -66,6 +70,13 @@ async def on_ready():
 
     activity = discord.Streaming(name="OFFICIAL WAIFU NOUFAL ZAIDAAN", url="https://twitch.tv/fal0_")
     await bot.change_presence(status=discord.Status.online, activity=activity)
+
+    try:
+        synced = await bot.tree.sync()
+        print(f"✅ Synced {len(synced)} slash command(s).")
+    except Exception as e:
+        print(f"❌ Error syncing commands: {e}")
+
 
 @bot.command()
 async def ping(ctx):
@@ -344,5 +355,18 @@ async def ensure_voice(ctx):
     elif ctx.voice_client.is_playing():
         ctx.voice_client.stop()
 
+
+# Slash command utama agar dapat badge
+@bot.tree.command(name="hello", description="Balasan halo dari Waifu Noufal Zaidaan!~")
+async def hello(interaction: discord.Interaction):
+    await interaction.response.send_message(f"Hai {interaction.user.mention}! 💖 Aku Waifu Noufal Zaidaan siap menemanimu~")
+
+# (opsional) slash command tambahan
+@bot.tree.command(name="ping", description="Cek apakah bot aktif!")
+async def slash_ping(interaction: discord.Interaction):
+    await interaction.response.send_message("Pong! 🏓 Aku aktif kok, sayang~")
+
+setup_auto_voice_events(bot)
+bot.load_extension("cogs.auto_voice")
 # Run the bot with your token
 bot.run(config.BOT_TOKEN)
